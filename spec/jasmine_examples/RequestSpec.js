@@ -8,7 +8,7 @@ let TeamCityReporter = new reporters.TeamCityReporter ({
     consolidateAll: false
 });
 
-const token = "mbmuc0alHi0AAAAAAAAAAekdm_roV9LZZmh4gXy4V4BiQ6HP4sqqsHrdDUeTV6fF";
+const token = "u7CS6AIzifUAAAAAAAAAAQpl9GDSoO_C7-XN53nZn3Om7yrPAlCuIiYMxkk-iIV_";
 jasmine.getEnv().addReporter(TeamCityReporter)
 
 describe("upload text.sorry.txt to server", function() {
