@@ -22,7 +22,7 @@ describe("upload text.sorry.txt to server", function() {
        'Content-Type': 'application/octet-stream'
      },
       data : {
-       binary: "/Users/i5-8600K/api_js_axios/text.sorry.txt"
+       binary: "xt.sorry.txt"
      }
     };
 
