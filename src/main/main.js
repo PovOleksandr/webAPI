@@ -1,5 +1,5 @@
 
-const token = "3IjoCTfjalEAAAAAAAAAAZ9grej_3umDUYIw6HAqCRi1b_Xi5t5khl-7Z4AUzhUk";
+const token = "azQvzgDs8Z0AAAAAAAAAAVXByCzBUBtVTeGka0mZIpcS6_p0IQTxhsQZpr5bUGXJ";
 let reporters = require('jasmine-reporters');
 
 let TeamCityReporter = new reporters.TeamCityReporter ({
@@ -25,10 +25,10 @@ describe("Upload file to dropbox", function() {
     };
 
   it("All loaded successfuly", async function() {
-
-    await axios(postMethod)
+      let responseStatus =0;
+      await axios(postMethod)
       .then( function (response) {
-        let responseStatus  = response.status;
+        responseStatus  = response.status;
       })
       .catch(function (error) {
          console.log(error);
@@ -56,9 +56,10 @@ describe("Get metadata", function(){
 
   it("Metadata gotten successfuly", async function() {
 
+    let responseStatus =0;
     await axios(getMethod)
     .then(function (response) {
-      let responseStatus = response.status;
+      responseStatus = response.status;
     })
     .catch(function (error) {
       console.log(error);
@@ -84,10 +85,10 @@ describe("Delete file", function(){
         "path":"/pleaseWork.txt"
     }
 };
-
+  let responseStatus =0;
   await axios(deleteMethod)
     .then(function (response) {
-      let responseStatus = response.status;
+      responseStatus = response.status;
     })
     .catch(function (error) {
        console.log(error);
