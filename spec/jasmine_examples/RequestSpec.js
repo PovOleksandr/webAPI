@@ -22,7 +22,7 @@ describe("upload text.sorry.txt to server", function() {
        'Content-Type': 'application/octet-stream'
      },
       data : {
-       binary: "xt.sorry.txt"
+       binary: "/text.sorry.txt"
      }
     };
 
