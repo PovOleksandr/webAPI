@@ -1,55 +1,48 @@
-let first_id = 0
-let second_id = 0
 
-
+const token = "azQvzgDs8Z0AAAAAAAAAAVXByCzBUBtVTeGka0mZIpcS6_p0IQTxhsQZpr5bUGXJ";
 let reporters = require('jasmine-reporters');
+
 let TeamCityReporter = new reporters.TeamCityReporter ({
     savePath: __dirname,
     consolidateAll: false
 });
 
-const token = "azQvzgDs8Z0AAAAAAAAAAVXByCzBUBtVTeGka0mZIpcS6_p0IQTxhsQZpr5bUGXJ";
 jasmine.getEnv().addReporter(TeamCityReporter)
 
-describe("upload text.sorry.txt to server", function() {
+describe("Upload file to dropbox", function() {
   let axios = require('axios');
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  let config = {
+  let postMethod = {
       method: 'post',
       url: 'https://content.dropboxapi.com/2/files/upload',
       headers: { 
-       'Dropbox-API-Arg': '{"mode":"add","autorename":true,"mute":false,"path":"/text.sorry.txt"}', 
+       'Dropbox-API-Arg': '{"mode":"add","autorename":true,"mute":false,"path":"/pleaseWork.txt"}', 
        'Content-Type': 'application/octet-stream'
      },
       data : {
-       binary: "/text.sorry.txt"
+       binary: "/pleaseWork.txt"
      }
     };
 
-  it("have to be successfully uploaded", async function() {
+  it("All loaded successfuly", async function() {
 
-    let response_status = 500;
-
-    await axios(config)
+    await axios(postMethod)
       .then( function (response) {
-        response_status  = response.status;
-        first_id = response.id;
+        let responseStatus  = response.status;
       })
       .catch(function (error) {
          console.log(error);
       });
 
-  expect(response_status).toBe(200);
+  expect(responseStatus).toBe(200);
     
   }, 10000);
 });
 
-
-
-describe("get metadata from request", function(){
+describe("Get metadata", function(){
   let axios = require('axios');
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  let config = {
+  let getMethod = {
        method: 'post',
        url: 'https://api.dropboxapi.com/2/files/get_metadata',
        headers: { 
@@ -57,45 +50,30 @@ describe("get metadata from request", function(){
          'Authorization': `Bearer ${token}`
        },
        data : {
-        "path":"/text.sorry.txt"
+        "path":"/pleaseWork.txt"
        }
     };
 
-  it("have to be successfully got data", async function() {
-    let response_status = 500;
+  it("Metadata gotten successfuly", async function() {
 
-    await axios(config)
+    await axios(getMethod)
     .then(function (response) {
-      response_status = response.status;
+      let responseStatus = response.status;
     })
     .catch(function (error) {
       console.log(error);
     });
 
-    expect(response_status).toBe(200);
-    
+    expect(responseStatus).toBe(200);
   }, 10000);
-
-  it("have to be the same id as request", async function(){
-    await axios(config)
-    .then(function (response) {
-      second_id = response.id;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    expect(second_id).toBe(first_id);
-  });
 });
 
-
-
-describe("delete from server", function(){
+describe("Delete file", function(){
   let axios = require('axios');
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-  it("have to be successfully deleted", async function() {
-    let config3 = {
+  it("Deleted successfuly", async function() {
+    let deleteMethod = {
     method: 'post',
     url: 'https://api.dropboxapi.com/2/files/delete_v2',
     headers: { 
@@ -103,23 +81,17 @@ describe("delete from server", function(){
     'Content-Type': 'application/json'
     },
     data : {
-        "path":"/text.sorry.txt"
+        "path":"/pleaseWork.txt"
     }
 };
 
-  let response_status = 500;
-
-  await axios(config3)
+  await axios(deleteMethod)
     .then(function (response) {
-      response_status = response.status;
+      let responseStatus = response.status;
     })
     .catch(function (error) {
        console.log(error);
     });
-
-
-  expect(response_status).toBe(200);
-    
+  expect(responseStatus).toBe(200);    
   }, 10000);
-
 });
