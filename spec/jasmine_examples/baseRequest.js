@@ -1,4 +1,6 @@
 
+let axios = require('axios');
+
 class BaseRequest{
 
     constructor( userMethod,userUrl, userHeader={}, userData={}) {
