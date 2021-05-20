@@ -20,21 +20,8 @@ describe("Upload file to dropbox", function() {
                 'Content-Type': 'application/octet-stream'},
         {binary: "/pleaseWork.txt"});
 
-  let postMethod = request.getMethod();
+  request.run();
 
-  it("All loaded successfuly", async function() {
-      let responseStatus =0;
-      await axios(postMethod)
-      .then( function (response) {
-        responseStatus  = response.status;
-      })
-      .catch(function (error) {
-         console.log(error);
-      });
-
-  expect(responseStatus).toBe(200);
-    
-  }, 10000);
 });
 
 describe("Get metadata", function(){
@@ -71,18 +58,20 @@ describe("Delete file", function(){
   let axios = require('axios');
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
+  let deleteMethod = {
+      method: 'post',
+      url: 'https://api.dropboxapi.com/2/files/delete_v2',
+      headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+      },
+      data : {
+          "path":"/pleaseWork.txt"
+      }
+  };
+
   it("Deleted successfuly", async function() {
-    let deleteMethod = {
-    method: 'post',
-    url: 'https://api.dropboxapi.com/2/files/delete_v2',
-    headers: { 
-    'Authorization': `Bearer ${token}`, 
-    'Content-Type': 'application/json'
-    },
-    data : {
-        "path":"/pleaseWork.txt"
-    }
-};
+
   let responseStatus =0;
   await axios(deleteMethod)
     .then(function (response) {

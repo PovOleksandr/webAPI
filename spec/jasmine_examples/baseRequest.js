@@ -14,7 +14,21 @@ class BaseRequest{
             };
         }
 
-        getMethod(){return this.resMethod;}
+        run(expectation){
+            it(expectation, async function() {
+                let responseStatus =0;
+                await axios(this.resMethod)
+                    .then( function (response) {
+                        responseStatus  = response.status;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+                expect(responseStatus).toBe(200);
+
+            }, 10000);
+        }
 }
 
 module.exports = BaseRequest;
