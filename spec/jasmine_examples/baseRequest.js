@@ -11,7 +11,7 @@ class BaseRequest{
             url: this.url,
             headers: this.header,
             data: this.data
-            }
+            };
         }
 
         getMethod(){return this.resMethod;}
