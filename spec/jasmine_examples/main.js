@@ -9,7 +9,7 @@ let TeamCityReporter = new reporters.TeamCityReporter ({
 
 jasmine.getEnv().addReporter(TeamCityReporter)
 
-let BaseRequest = require('./baseRequest');
+let BaseRequest = require('./../baseRequest');
 
 describe("Upload file to dropbox", function() {
   let request = new BaseRequest(token,"post", "https://content.dropboxapi.com/2/files/upload",
