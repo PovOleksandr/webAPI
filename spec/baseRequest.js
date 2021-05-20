@@ -19,13 +19,12 @@ class BaseRequest{
 
         it(expectation, async function() {
             let responseStatus =0;
-            await axios(resMethod)
-                .then( function (response) {
-                    responseStatus  = response.status;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            try{
+                let response = await  axios(resMethod);
+                responseStatus = response.status;
+            }catch(error){
+                console.log(error);
+            }
 
             expect(responseStatus).toBe(200);}, 10000);
         }
