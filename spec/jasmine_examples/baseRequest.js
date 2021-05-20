@@ -1,4 +1,3 @@
-let axios = require('axios');
 
 class BaseRequest{
 
@@ -7,18 +6,21 @@ class BaseRequest{
         this.url = userUrl;
         this.header = userHeader;
         this.data = userData;
-        this.resMethod = {
-            method:this.method,
-            url: this.url,
-            headers: this.header,
-            data: this.data
-            };
+
         }
 
         run(expectation){
+
+            let resMethod = {
+                method:this.method,
+                url: this.url,
+                headers: this.header,
+                data: this.data
+            };
+
             it(expectation, async function() {
                 let responseStatus =0;
-                await axios(this.resMethod)
+                await axios(resMethod)
                     .then( function (response) {
                         responseStatus  = response.status;
                     })
