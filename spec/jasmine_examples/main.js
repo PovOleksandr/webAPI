@@ -9,20 +9,18 @@ let TeamCityReporter = new reporters.TeamCityReporter ({
 
 jasmine.getEnv().addReporter(TeamCityReporter)
 
+let BaseRequest = require('./BaseRequest');
+
 describe("Upload file to dropbox", function() {
   let axios = require('axios');
   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  let postMethod = {
-      method: 'post',
-      url: 'https://content.dropboxapi.com/2/files/upload',
-      headers: { 
-       'Dropbox-API-Arg': '{"mode":"add","autorename":true,"mute":false,"path":"/pleaseWork.txt"}', 
-       'Content-Type': 'application/octet-stream'
-     },
-      data : {
-       binary: "/pleaseWork.txt"
-     }
-    };
+
+  let request = BaseRequest("post", "https://content.dropboxapi.com/2/files/upload",
+      {'Dropbox-API-Arg': '{"mode":"add","autorename":true,"mute":false,"path":"/pleaseWork.txt"}',
+                'Content-Type': 'application/octet-stream'},
+        {binary: "/pleaseWork.txt"});
+
+  let postMethod = request.getMethod();
 
   it("All loaded successfuly", async function() {
       let responseStatus =0;
