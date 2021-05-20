@@ -3,12 +3,12 @@ let axios = require('axios');
 
 class BaseRequest{
 
-    constructor( userMethod,userUrl, userHeader={}, userData={}) {
+    constructor( token,userMethod,userUrl, userHeader={}, userData={}) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         this.method = userMethod;
         this.url = userUrl;
         this.header = userHeader;
         this.data = userData;
-
         }
 
         run(expectation){
